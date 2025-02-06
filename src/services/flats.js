@@ -8,9 +8,9 @@ export const getAllFlats = async ({ page = 1,
     sortBy = '_id',
     filter = {} }) => {
     const limit = perPage;
-    const skip = (page - 1) * perPage;
+    const skip = (page - 1) * limit;
 
-    const flatsQuery = await FlatsCollection.find();
+    const flatsQuery = FlatsCollection.find();
 
     if (filter.price) {
         flatsQuery.where('price').gte(filter.price);
@@ -19,20 +19,14 @@ export const getAllFlats = async ({ page = 1,
         flatsQuery.where('rooms').equals(filter.rooms);
     }
 
-    const [flatsCount, flats] = await Promise.all([
-        FlatsCollection.find().merge(flatsQuery).countDocuments(),
-        flatsQuery
-            .skip(skip)
-            .limit(limit)
-            .sort({ [sortBy]: sortOrder })
-            .exec(),
-    ]);
+    const items = await flatsQuery.skip(skip).limit(limit).sort({[sortBy]: sortOrder});
+    const total = await FlatsCollection.find().merge(flatsQuery).countDocuments();
 
 
-    const paginationData = calculatePaginationData(flatsCount, perPage, page);
+    const paginationData = calculatePaginationData(total, perPage, page);
 
     return {
-        data: flats,
+        data: items,
         ...paginationData,
     };
 };
