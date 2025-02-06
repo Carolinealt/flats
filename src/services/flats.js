@@ -5,16 +5,29 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 export const getAllFlats = async ({ page = 1,
     perPage = 10,
     sortOrder = SORT_ORDER.ASC,
-    sortBy = '_id', }) => {
+    sortBy = '_id',
+    filter = {} }) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
     const flatsQuery = await FlatsCollection.find();
-    const flatsCount = await FlatsCollection.find()
-        .merge(flatsQuery)
-        .countDocuments();
 
-    const flats = await flatsQuery.skip(skip).limit(limit).sort({ [sortBy]: sortOrder }).exec();
+    if (filter.price) {
+        flatsQuery.where('price').gte(filter.price);
+    }
+    if (filter.rooms) {
+        flatsQuery.where('rooms').equals(filter.rooms);
+    }
+
+    const [flatsCount, flats] = await Promise.all([
+        FlatsCollection.find().merge(flatsQuery).countDocuments(),
+        flatsQuery
+            .skip(skip)
+            .limit(limit)
+            .sort({ [sortBy]: sortOrder })
+            .exec(),
+    ]);
+
 
     const paginationData = calculatePaginationData(flatsCount, perPage, page);
 

@@ -2,17 +2,21 @@ import createHttpError from "http-errors";
 import { createFlat, deleteFlat, getAllFlats, getFlatById, updateFlat } from "../services/flats.js";
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
+import { parseFilterParams } from "../utils/parseFilterParams.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const { page, perPage } = parsePaginationParams(req.query);
 
     const { sortBy, sortOrder } = parseSortParams(req.query);
 
+    const filter = parseFilterParams(req.query);
+
     const flats = await getAllFlats({
         page,
         perPage,
         sortBy,
         sortOrder,
+        filter,
     });
 
     res.status(200).json({ data: flats });
