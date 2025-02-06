@@ -67,3 +67,19 @@ export const upsertFlatController = async (req, res, next) => {
     });
 
 };
+
+export const patchFlatController = async (req, res, next) => {
+    const { flatId } = req.params;
+    const result = await updateFlat(flatId, req.body);
+
+    if (!result) {
+        next(createHttpError(404, 'Flat not found'));
+        return;
+    }
+
+    res.json({
+        status: 200,
+        message: `Successfully patched a flat!`,
+        data: result.flat,
+    });
+};

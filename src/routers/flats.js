@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createFlatController, deleteFlatController, getAllFlatsController, getFlatByIdController, upsertFlatController } from "../controllers/flats.js";
+import { createFlatController, deleteFlatController, getAllFlatsController, getFlatByIdController, patchFlatController, upsertFlatController } from "../controllers/flats.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
 const router = Router();
@@ -15,7 +15,7 @@ router.delete('/flats/:flatId', ctrlWrapper(deleteFlatController));
 
 router.put('/flats/:flatId', ctrlWrapper(upsertFlatController));
 
-router.patch('/flats/:flatId', ctrlWrapper(getFlatByIdController));
+router.patch('/flats/:flatId', ctrlWrapper(patchFlatController));
 
 
 export default router;
