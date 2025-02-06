@@ -1,0 +1,18 @@
+.flatsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flatsItem {
+    width: calc((100% - 20px) / 3);
+    height: 250px;
+    background-color: var(--mainColor);
+    transition: transform var(--transitionProp);
+
+}
+
+.flatsItem:hover,
+.flatsItem:focus {
+    transform: translateY(-10px);
+}

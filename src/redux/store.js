@@ -1,7 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tasksReducer from './tasksSlice';
-import filtersReducer from './filtersSlice';
-
+import flatsReducer from './flats/flatsSlice'
 export const store = configureStore({
     reducer: {
         flats: flatsReducer,

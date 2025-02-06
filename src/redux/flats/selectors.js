@@ -1,0 +1,1 @@
+export const selectFlatsList = state => state.flats.items;
