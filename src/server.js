@@ -3,6 +3,9 @@ import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from "dotenv";
 import { getEnvVar } from './utils/getEnvVar.js';
+import flatsRouter from './routers/flats.js';
+import { notFoundHandler } from './utils/notFoundHandler.js';
+import { errorHandler } from './utils/errorHandler.js';
 
 dotenv.config();
 
@@ -11,7 +14,7 @@ const PORT = Number(getEnvVar('PORT', 3000));
 export const startServer = () => {
     const app = express();
 
-    app.use(express.json());
+    app.use(express.json({ type: ['application/json', 'application/vnd.api+json'] }));
     app.use(cors());
 
     app.use(
@@ -28,18 +31,11 @@ export const startServer = () => {
         });
     });
 
-    app.use('*', (req, res, next) => {
-        res.status(404).json({
-            message: 'Not found',
-        });
-    });
+    app.use(flatsRouter);
 
-    app.use((err, req, res, next) => {
-        res.status(500).json({
-            message: 'Something went wrong',
-            error: err.message,
-        });
-    });
+    app.use('*', notFoundHandler);
+
+    app.use(errorHandler);
 
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
