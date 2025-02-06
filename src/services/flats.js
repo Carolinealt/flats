@@ -9,3 +9,8 @@ export const getFlatById = async (flatId) => {
     const flat = await FlatsCollection.findById(flatId);
     return flat;
 };
+
+export const createFlat = async (payload) => {
+    const flat = await FlatsCollection.create(payload);
+    return flat;
+}

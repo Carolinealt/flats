@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import { getAllFlats, getFlatById } from "../services/flats.js";
+import { createFlat, getAllFlats, getFlatById } from "../services/flats.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const flats = await getAllFlats();
@@ -25,5 +25,10 @@ export const getFlatByIdController = async (req, res, next) => {
 };
 
 export const createFlatController = async (req, res) => {
-
+    const flat = await createFlat(req.body);
+    res.status(201).json({
+        status: 201,
+        message: `Successfully created a flat!`,
+        data: flat,
+    });
 };
