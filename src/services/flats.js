@@ -22,3 +22,22 @@ export const deleteFlat = async (flatId) => {
 
     return flat;
 };
+
+export const updateFlat = async (flatId, payload, options = {}) => {
+    const rawResult = await FlatsCollection.findOneAndUpdate(
+        { _id: flatId },
+        payload,
+        {
+            new: true,
+            includeResultMetadata: true,
+            ...options,
+        },
+    );
+
+    if (!rawResult || !rawResult.value) return null;
+
+    return {
+        flat: rawResult.value,
+        isNew: Boolean(rawResult?.lastErrorObject?.upserted),
+    };
+};

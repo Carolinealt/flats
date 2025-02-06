@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import { createFlat, deleteFlat, getAllFlats, getFlatById } from "../services/flats.js";
+import { createFlat, deleteFlat, getAllFlats, getFlatById, updateFlat } from "../services/flats.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const flats = await getAllFlats();
@@ -46,6 +46,24 @@ export const deleteFlatController = async (req, res, next) => {
     res.status(204).send();
 };
 
-export const upsertFlatController = async (req, res) => {
+export const upsertFlatController = async (req, res, next) => {
     const { flatId } = req.params;
+
+    const result = await updateFlat(flatId, req.body, {
+        upsert: true,
+    });
+
+    if (!result) {
+        next(createHttpError(404, 'Flat not found'));
+        return;
+    }
+
+    const status = result.isNew ? 201 : 200;
+
+    res.status(status).json({
+        status,
+        message: `Successfully upserted a flat!`,
+        data: result.flat,
+    });
+
 };
