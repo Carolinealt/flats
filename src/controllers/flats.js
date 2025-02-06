@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import { createFlat, getAllFlats, getFlatById } from "../services/flats.js";
+import { createFlat, deleteFlat, getAllFlats, getFlatById } from "../services/flats.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const flats = await getAllFlats();
@@ -31,4 +31,21 @@ export const createFlatController = async (req, res) => {
         message: `Successfully created a flat!`,
         data: flat,
     });
+};
+
+export const deleteFlatController = async (req, res, next) => {
+    const { flatId } = req.params;
+
+    const flat = await deleteFlat(flatId);
+
+    if (!flat) {
+        next(createHttpError(404, 'Flat not found'));
+        return;
+    }
+
+    res.status(204).send();
+};
+
+export const upsertFlatController = async (req, res) => {
+    const { flatId } = req.params;
 };

@@ -13,4 +13,12 @@ export const getFlatById = async (flatId) => {
 export const createFlat = async (payload) => {
     const flat = await FlatsCollection.create(payload);
     return flat;
-}
+};
+
+export const deleteFlat = async (flatId) => {
+    const flat = await FlatsCollection.findOneAndDelete({
+        _id: flatId,
+    });
+
+    return flat;
+};
