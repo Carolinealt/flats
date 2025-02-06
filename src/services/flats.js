@@ -1,8 +1,27 @@
+import { SORT_ORDER } from '../constants/index.js';
 import { FlatsCollection } from '../db/models/flat.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllFlats = async () => {
-    const flats = await FlatsCollection.find();
-    return flats;
+export const getAllFlats = async ({ page = 1,
+    perPage = 10,
+    sortOrder = SORT_ORDER.ASC,
+    sortBy = '_id', }) => {
+    const limit = perPage;
+    const skip = (page - 1) * perPage;
+
+    const flatsQuery = await FlatsCollection.find();
+    const flatsCount = await FlatsCollection.find()
+        .merge(flatsQuery)
+        .countDocuments();
+
+    const flats = await flatsQuery.skip(skip).limit(limit).sort({ [sortBy]: sortOrder }).exec();
+
+    const paginationData = calculatePaginationData(flatsCount, perPage, page);
+
+    return {
+        data: flats,
+        ...paginationData,
+    };
 };
 
 export const getFlatById = async (flatId) => {
