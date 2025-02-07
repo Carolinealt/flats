@@ -3,6 +3,7 @@ import { createFlat, deleteFlat, getAllFlats, getFlatById, updateFlat } from "..
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
+import { saveFileToUploadsDir } from "../utils/saveFileToUploadDir.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const { page, perPage } = parsePaginationParams(req.query);
@@ -40,7 +41,16 @@ export const getFlatByIdController = async (req, res, next) => {
 };
 
 export const createFlatController = async (req, res) => {
-    const flat = await createFlat(req.body);
+    const photos = req.files;
+
+    photos.map(async el => {
+        console.log(el);
+
+        return await saveFileToUploadsDir(el);
+    });
+
+    const flat = await createFlat({ ...req.body, photos });
+
     res.status(201).json({
         status: 201,
         message: `Successfully created a flat!`,

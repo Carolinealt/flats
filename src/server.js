@@ -6,6 +6,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import flatsRouter from './routers/flats.js';
 import { notFoundHandler } from './utils/notFoundHandler.js';
 import { errorHandler } from './utils/errorHandler.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ export const startServer = () => {
             message: 'Hello world!',
         });
     });
+
+    app.use('/uploads', express.static(UPLOAD_DIR));
 
     app.use(flatsRouter);
 
