@@ -11,12 +11,12 @@ export const createFlatSchema = Joi.object({
         'string.max': 'Description should have at most {#limit} characters',
         'any.required': 'Description is required'
     }),
-    price: Joi.number().required().messages({
-        'number.base': 'Price must be a number',
+    price: Joi.string().required().messages({
+        'number.base': 'Price must be a string',
         'any.required': 'Price is required'
     }),
-    rooms: Joi.valid(1, 2, 3).required().messages({
-        'number.base': 'Number of rooms must be a number',
+    rooms: Joi.valid("1", "2", "3").required().messages({
+        'number.base': 'Number of rooms must be a string',
         'number.valid': 'Number of rooms must contain 1, 2, 3 values only',
         'any.required': 'Number of rooms is required'
     }),
@@ -34,11 +34,11 @@ export const updateFlatSchema = Joi.object({
         'string.base': 'Description must be a string',
         'string.max': 'Description should have at most {#limit} characters',
     }),
-    price: Joi.number().messages({
-        'number.base': 'Price must be a number',
+    price: Joi.string().messages({
+        'number.base': 'Price must be a string',
     }),
-    rooms: Joi.valid(1, 2, 3).messages({
-        'number.base': 'Number of rooms must be a number',
+    rooms: Joi.valid("1", "2", "3").messages({
+        'number.base': 'Number of rooms must be a string',
         'number.valid': 'Number of rooms must contain 1, 2, 3 values only',
     }),
     photos: Joi.array().messages({
