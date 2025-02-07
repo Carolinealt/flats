@@ -3,3 +3,19 @@
     border-radius: 10px;
     height: 100%;
 }
+
+.flatPhoto {
+    width: 150px;
+}
+
+.galleryList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.galleyItem {
+    overflow: hidden;
+
+}

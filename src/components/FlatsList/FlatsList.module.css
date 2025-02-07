@@ -6,7 +6,6 @@
 
 .flatsItem {
     width: calc((100% - 20px) / 3);
-    height: 250px;
     background-color: var(--mainColor);
     transition: transform var(--transitionProp);
 
