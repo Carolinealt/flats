@@ -13,7 +13,9 @@ function App() {
   }, [dispatch])
   return <div>
     <FlatForm />
+    
     <FlatsList />
+
   </div>
 }
 
