@@ -3,7 +3,7 @@ import { createFlat, deleteFlat, getAllFlats, getFlatById, updateFlat } from "..
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
-import { saveFileToUploadsDir } from "../utils/saveFileToUploadDir.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
 export const getAllFlatsController = async (req, res, next) => {
     const { page, perPage } = parsePaginationParams(req.query);
@@ -43,11 +43,9 @@ export const getFlatByIdController = async (req, res, next) => {
 export const createFlatController = async (req, res) => {
     const photos = req.files;
 
-    photos.map(async el => {
-        return await saveFileToUploadsDir(el);
-    });
+    const uploadedPhotos = await Promise.all(photos.map(async el => await saveFileToCloudinary(el)));
 
-    const flat = await createFlat({ ...req.body, photos });
+    const flat = await createFlat({ ...req.body, photos: uploadedPhotos });
 
     res.status(201).json({
         status: 201,
@@ -73,14 +71,13 @@ export const upsertFlatController = async (req, res, next) => {
     const { flatId } = req.params;
 
     const photos = req.files;
+    let uploadedPhotos;
 
-    if (req.files) {
-        photos.map(async el => {
-            return await saveFileToUploadsDir(el);
-        });
+    if (photos) {
+        uploadedPhotos = await Promise.all(photos.map(async el => await saveFileToCloudinary(el)));
     }
 
-    const result = await updateFlat(flatId, { ...req.body, photos }, {
+    const result = await updateFlat(flatId, { ...req.body, photos: uploadedPhotos }, {
         upsert: true,
     });
 
@@ -98,14 +95,13 @@ export const patchFlatController = async (req, res, next) => {
     const { flatId } = req.params;
 
     const photos = req.files;
+    let uploadedPhotos;
 
-    if (req.files) {
-        photos.map(async el => {
-            return await saveFileToUploadsDir(el);
-        });
+    if (photos) {
+        uploadedPhotos = await Promise.all(photos.map(async el => await saveFileToCloudinary(el)));
     }
 
-    const result = await updateFlat(flatId, { ...req.body, photos });
+    const result = await updateFlat(flatId, { ...req.body, photos: uploadedPhotos });
 
     if (!result) {
         next(createHttpError(404, 'Flat not found'));

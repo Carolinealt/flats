@@ -11,13 +11,11 @@ export const createFlatSchema = Joi.object({
         'string.max': 'Description should have at most {#limit} characters',
         'any.required': 'Description is required'
     }),
-    // price: Joi.number().messages({
     price: Joi.number().required().messages({
         'number.base': 'Price must be a number',
         'any.required': 'Price is required'
     }),
     rooms: Joi.valid(1, 2, 3).required().messages({
-        // rooms: Joi.valid(1, 2, 3).messages({
         'number.base': 'Number of rooms must be a number',
         'number.valid': 'Number of rooms must contain 1, 2, 3 values only',
         'any.required': 'Number of rooms is required'
