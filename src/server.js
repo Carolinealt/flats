@@ -15,8 +15,9 @@ const PORT = Number(getEnvVar('PORT', 3000));
 export const startServer = () => {
     const app = express();
 
-    app.use(express.json({ type: ['application/json', 'application/vnd.api+json'] }));
     app.use(cors());
+    app.use(express.json());
+    app.use(express.static("uploads"));
 
     app.use(
         pino({
@@ -32,7 +33,7 @@ export const startServer = () => {
         });
     });
 
-    app.use('/uploads', express.static(UPLOAD_DIR));
+    // app.use('/uploads', express.static(UPLOAD_DIR));
 
     app.use(flatsRouter);
 
