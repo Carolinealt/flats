@@ -40,14 +40,21 @@ const FlatForm = () => {
                 formData.append("description", values.description);
                 formData.append("rooms", Number(values.rooms));
                 formData.append("price", Number(values.price));
+                console.log(values.photos, "values.photos");
+                values.photos.forEach((file) => {
+                    formData.append("photos", file); // Добавляем каждый файл в FormData
+                });
 
-                values.photos.forEach((file, index) => {
-                    formData.append(`photos`, file);
-                });  // Отправляем файл
+                const validData = {
+                    title: values.title,
+                    description: values.description,
+                    rooms: Number(values.rooms),
+                    price: Number(values.price),
+                    photos: values.photos
+                }
 
-                dispatch(addFlat(values));  // Отправляем в Redux action
+                dispatch(addFlat(validData));  // Отправляем в Redux action
 
-                // dispatch(addFlat(values))
                 actions.resetForm();
             }}>
             {({ setFieldValue }) => (
@@ -90,7 +97,7 @@ const FlatForm = () => {
                                 multiple
                                 onChange={(event) => {
                                     const files = Array.from(event.currentTarget.files);
-                                    setFieldValue("photos", [...event.currentTarget.files]); // Сохраняем файлы в formik
+                                    setFieldValue("photos", Array.from(event.currentTarget.files));
 
                                     // Генерируем превью для отображения
                                     const previews = files.map((file) => URL.createObjectURL(file));

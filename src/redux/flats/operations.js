@@ -17,10 +17,9 @@ export const fetchFlats = createAsyncThunk(
 
 export const addFlat = createAsyncThunk('flats/addFlat', async (payload, thunkAPI) => {
     try {
-        const response = await axios.post('/flats', payload, { headers: { "Content-Type": "multipart/form-data" } });
+        const response = await axios.post('/flats', payload);
 
         console.log("response", response);
-        return response.data;
 
 
     } catch (e) {
