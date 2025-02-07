@@ -38,8 +38,8 @@ const FlatForm = () => {
                 const formData = new FormData();
                 formData.append("title", values.title);
                 formData.append("description", values.description);
-                formData.append("rooms", values.rooms);
-                formData.append("price", values.price);
+                formData.append("rooms", Number(values.rooms));
+                formData.append("price", Number(values.price));
 
                 values.photos.forEach((file, index) => {
                     formData.append(`photos`, file);

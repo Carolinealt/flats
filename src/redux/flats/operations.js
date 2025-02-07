@@ -7,7 +7,7 @@ export const fetchFlats = createAsyncThunk(
     'flats/fetchAll',
     async (_, thunkAPI) => {
         try {
-            const { data: data } = await axios.get('/flats');
+            const { data: data } = await axios.get('/flats', { params: { perPage: 25 } });
             return data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
