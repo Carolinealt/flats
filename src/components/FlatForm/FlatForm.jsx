@@ -24,7 +24,7 @@ const FlatForm = () => {
     const descriptionFieldId = useId();
     const roomsFieldId = useId();
     const priceFieldId = useId();
-    const photoFieldId = useId();
+
 
     const dispatch = useDispatch();
 
@@ -35,26 +35,18 @@ const FlatForm = () => {
             initialValues={initialValues}
             validationSchema={FlatSchema}
             onSubmit={(values, actions) => {
-                const formData = new FormData();
+                let formData = new FormData();
                 formData.append("title", values.title);
                 formData.append("description", values.description);
-                formData.append("rooms", Number(values.rooms));
-                formData.append("price", Number(values.price));
-                console.log(values.photos, "values.photos");
+                formData.append("rooms", values.rooms);
+                formData.append("price", values.price);
                 values.photos.forEach((file) => {
-                    formData.append("photos", file); // Добавляем каждый файл в FormData
+                    formData.append("photos", file);
                 });
-
-                const validData = {
-                    title: values.title,
-                    description: values.description,
-                    rooms: Number(values.rooms),
-                    price: Number(values.price),
-                    photos: values.photos
-                }
-
-                dispatch(addFlat(validData));  // Отправляем в Redux action
-
+                
+                dispatch(addFlat(formData));  
+                
+                setPreview([]);
                 actions.resetForm();
             }}>
             {({ setFieldValue }) => (

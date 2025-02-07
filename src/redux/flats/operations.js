@@ -20,8 +20,6 @@ export const addFlat = createAsyncThunk('flats/addFlat', async (payload, thunkAP
         const response = await axios.post('/flats', payload);
 
         console.log("response", response);
-
-
     } catch (e) {
         return thunkAPI.rejectWithValue(e.message);
 
