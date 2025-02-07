@@ -19,7 +19,7 @@ const initialValues = {
     title: "", description: "", rooms: 1, price: "", photos: [],
 };
 
-const FlatForm = () => {
+const FlatFormik = () => {
     const titleFieldId = useId();
     const descriptionFieldId = useId();
     const roomsFieldId = useId();
@@ -119,4 +119,4 @@ const FlatForm = () => {
     )
 }
 
-export default FlatForm;
+export default FlatFormik;
