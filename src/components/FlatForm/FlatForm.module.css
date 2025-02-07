@@ -1,0 +1,90 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toAddContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btnContainer {
+    margin: auto 0;
+    padding: 50px;
+    background-color: #ffffff07;
+    border-radius: var(--borderRadius);
+    outline: none;
+    border: none;
+
+}
+
+.addPhotoBtn {
+    display: block;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    outline: none;
+    border: none;
+    
+}
+
+.iconAdd {
+    transition: transform var(--transitionProp);
+    color: var(--secondColor);
+    outline: none;
+    border: none;
+}
+
+.btnContainer:hover .iconAdd,
+.btnContainer:focus .iconAdd {
+    transform: rotate(45deg);
+}
+
+.fieldContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    text-align: left;
+    background-color: #ffffff04;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.textField {
+    background-color: rgba(255, 255, 255, 0.922);
+    border-radius: var(--borderRadius);
+}
+
+.textAreaField {
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 100px;
+    max-height: 250px;
+}
+
+.optionField {
+    padding: 5px 10px;
+    width: 50%;
+}
+
+.previewContainer{
+
+}
+
+.previewImage{
+    width: 250px;
+}
+
+.btnSubmit {
+    width: 100px;
+    color: white;
+    margin: 25px 5px;
+}

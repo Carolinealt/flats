@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchFlats } from "./operations";
+import { addFlat, fetchFlats } from "./operations";
 
 const handlePending = (state) => {
     state.isLoading = true;
@@ -29,6 +29,12 @@ const flatsSlice = createSlice({
                 state.items = payload.data.data;
             })
             .addCase(fetchFlats.rejected, handleRejected)
+            .addCase(addFlat.pending, handlePending)
+            .addCase(addFlat.fulfilled, (state, { payload }) => {
+                console.log('slice');
+
+            })
+            .addCase(addFlat.rejected, handleRejected)
     }
 })
 

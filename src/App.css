@@ -1,6 +1,8 @@
 :root {
   --mainColor: #242424;
-  --transitionProp: 500ms cubic-bezier(0.075, 0.82, 0.165, 1)
+  --transitionProp: 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  --borderRadius: 30px;
+  --secondColor: #535bf2;
 }
 
 #root {

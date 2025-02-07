@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectFlatsList } from '../../redux/flats/selectors'
 import FlatItem from '../FlatItem/FlatItem';
 import css from './FlatsList.module.css'

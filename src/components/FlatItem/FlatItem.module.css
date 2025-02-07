@@ -1,4 +1,5 @@
 .itemContainer {
     border: 1px white solid;
     border-radius: 10px;
+    height: 100%;
 }

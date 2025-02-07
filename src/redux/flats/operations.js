@@ -14,3 +14,18 @@ export const fetchFlats = createAsyncThunk(
         }
     }
 );
+
+export const addFlat = createAsyncThunk('flats/addFlat', async (payload, thunkAPI) => {
+    try {
+        console.log(payload);
+
+        const response = await axios.post('/flats', payload, { headers: { "Content-Type": "multipart/form-data" } });
+
+        console.log("response", response);
+
+
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message);
+
+    }
+})
