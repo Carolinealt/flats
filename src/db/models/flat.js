@@ -12,11 +12,11 @@ const flatsSchema = new Schema(
         },
         price: {
             type: Number,
-            required: false,
+            required: true,
         },
         rooms: {
             type: Number,
-            required: false,
+            required: true,
 
             enum: [1, 2, 3]
         },
