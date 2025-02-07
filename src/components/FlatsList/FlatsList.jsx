@@ -6,9 +6,12 @@ const FlatsList = () => {
     const flats = useSelector(selectFlatsList);
 
     return (
-        <ul className={css.flatsList}>{flats.map(el => <li key={el._id} className={css.flatsItem}>
-            <FlatItem data={el} />
-        </li>)}</ul>
+        <ul className={css.flatsList}>
+            {flats.map(el =>
+                <li key={el._id} className={css.flatsItem}>
+                    <FlatItem data={el} />
+                </li>)}
+        </ul>
     )
 }
 
