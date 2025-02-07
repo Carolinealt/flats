@@ -44,8 +44,6 @@ export const createFlatController = async (req, res) => {
     const photos = req.files;
 
     photos.map(async el => {
-        console.log(el);
-
         return await saveFileToUploadsDir(el);
     });
 
@@ -74,14 +72,17 @@ export const deleteFlatController = async (req, res, next) => {
 export const upsertFlatController = async (req, res, next) => {
     const { flatId } = req.params;
 
-    const result = await updateFlat(flatId, req.body, {
+    const photos = req.files;
+
+    if (req.files) {
+        photos.map(async el => {
+            return await saveFileToUploadsDir(el);
+        });
+    }
+
+    const result = await updateFlat(flatId, { ...req.body, photos }, {
         upsert: true,
     });
-
-    if (!result) {
-        next(createHttpError(404, 'Flat not found'));
-        return;
-    }
 
     const status = result.isNew ? 201 : 200;
 
@@ -95,7 +96,16 @@ export const upsertFlatController = async (req, res, next) => {
 
 export const patchFlatController = async (req, res, next) => {
     const { flatId } = req.params;
-    const result = await updateFlat(flatId, req.body);
+
+    const photos = req.files;
+
+    if (req.files) {
+        photos.map(async el => {
+            return await saveFileToUploadsDir(el);
+        });
+    }
+
+    const result = await updateFlat(flatId, { ...req.body, photos });
 
     if (!result) {
         next(createHttpError(404, 'Flat not found'));
