@@ -4,8 +4,9 @@ import * as Yup from "yup";
 import css from './FlatForm.module.css';
 import clsx from 'clsx';
 import { IoAdd } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
-import { addFlat } from '../../redux/flats/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFlat, patchFlat } from '../../redux/flats/operations';
+import { selectFlatData } from '../../redux/flats/selectors';
 
 const FlatSchema = Yup.object().shape({
     title: Yup.string().max(90, "Too long").required("Required field"),
@@ -15,20 +16,31 @@ const FlatSchema = Yup.object().shape({
     photos: Yup.mixed().required("Required field")
 })
 
-const initialValues = {
+let initialValues = {
     title: "", description: "", rooms: 1, price: "", photos: [],
 };
 
-const FlatForm = () => {
+const FlatForm = ({ selectedInitialValues }) => {
     const titleFieldId = useId();
     const descriptionFieldId = useId();
     const roomsFieldId = useId();
     const priceFieldId = useId();
-
-
     const dispatch = useDispatch();
-
+    const { _id } = useSelector(selectFlatData)
     const [preview, setPreview] = useState([]);
+
+    if (selectedInitialValues?.title) {
+        initialValues = selectedInitialValues;
+    }
+
+    const typeOfQuery = (formData) => {
+        if (selectedInitialValues?.title) {
+            dispatch(patchFlat({ _id, formData }));
+            return;
+        }
+        dispatch(addFlat(formData));
+        return;
+    };
 
     return (
         <Formik
@@ -43,9 +55,8 @@ const FlatForm = () => {
                 values.photos.forEach((file) => {
                     formData.append("photos", file);
                 });
-                
-                dispatch(addFlat(formData));  
-                
+                typeOfQuery(formData);
+
                 setPreview([]);
                 actions.resetForm();
             }}>
@@ -111,7 +122,6 @@ const FlatForm = () => {
                         </div>
 
                     </div>
-
                     <button type="submit" className={css.btnSubmit}>Add</button>
                 </Form>
             )}

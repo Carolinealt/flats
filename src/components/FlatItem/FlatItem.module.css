@@ -13,9 +13,30 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow: hidden;
+    justify-content: center
 }
 
 .galleyItem {
     overflow: hidden;
+    position: relative;
+}
+
+.btnList {
+    display: flex;
+    justify-content: space-around
+}
+
+.btn {
+    padding: 0;
+}
+
+.editBtn {
+    color: var(--secondColor);
+
+}
+
+.deleteBtn {
+    transform: rotate(45deg);
+    color: brown;
 
 }

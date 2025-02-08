@@ -17,10 +17,36 @@ export const fetchFlats = createAsyncThunk(
 
 export const addFlat = createAsyncThunk('flats/addFlat', async (payload, thunkAPI) => {
     try {
-        const response = await axios.post('/flats', payload);
+        const { data: data } = await axios.post('/flats', payload);
 
-        console.log("response", response);
+        return data.data;
     } catch (e) {
+        return thunkAPI.rejectWithValue(e.message);
+
+    }
+})
+
+export const deleteFlat = createAsyncThunk('flats/deleteFlat', async (payload, thunkAPI) => {
+    try {
+        const response = await axios.delete(`/flats/${payload}`);
+
+        return { data: response.data, id: payload };
+    } catch (e) {
+        return thunkAPI.rejectWithValue(e.message);
+    }
+})
+
+export const patchFlat = createAsyncThunk('flats/patchFlat', async (payload, thunkAPI) => {
+    try {
+        const { _id, formData } = payload;
+
+        const { data: data } = await axios.patch(`/flats/${_id}`, formData);
+        console.log(data);
+
+        return data;
+    } catch (e) {
+        console.log(e);
+
         return thunkAPI.rejectWithValue(e.message);
 
     }
