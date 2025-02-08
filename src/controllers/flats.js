@@ -73,11 +73,11 @@ export const upsertFlatController = async (req, res, next) => {
     const photos = req.files;
     let uploadedPhotos;
 
-    if (photos) {
+    if (photos.length) {
         uploadedPhotos = await Promise.all(photos.map(async el => await saveFileToCloudinary(el)));
     }
 
-    const result = await updateFlat(flatId, { ...req.body, photos: uploadedPhotos }, {
+    const result = await updateFlat(flatId, { ...req.body, photos: uploadedPhotos}, {
         upsert: true,
     });
 
@@ -94,11 +94,11 @@ export const upsertFlatController = async (req, res, next) => {
 export const patchFlatController = async (req, res, next) => {
     const { flatId } = req.params;
 
-    const photos = req.files;
+    const newPhotos = req.files;
     let uploadedPhotos;
 
-    if (photos) {
-        uploadedPhotos = await Promise.all(photos.map(async el => await saveFileToCloudinary(el)));
+    if (newPhotos.length) {
+        uploadedPhotos = await Promise.all(newPhotos.map(async el => await saveFileToCloudinary(el)));
     }
 
     const result = await updateFlat(flatId, { ...req.body, photos: uploadedPhotos });
