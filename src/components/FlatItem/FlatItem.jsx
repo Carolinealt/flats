@@ -19,7 +19,6 @@ const FlatItem = ({ data }) => {
             </div>
         `)
         instance.show()
-
     }
 
     const editBtn = () => {

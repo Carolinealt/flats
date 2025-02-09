@@ -1,0 +1,29 @@
+.modalOverlayContainer {
+    background-color: rgba(0, 0, 0, 0.919);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease-in-out;
+
+}
+
+.modalOverlayContainer.isOpen {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.formContainer{
+    background-color: #ffffff69;
+    border-radius: var(--borderRadius);
+    padding: 10px;
+}

@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { IoAdd } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFlat, patchFlat } from '../../redux/flats/operations';
-import { selectFlatData } from '../../redux/flats/selectors';
+import { selectFlatData, selectPhotos } from '../../redux/flats/selectors';
 
 const FlatSchema = Yup.object().shape({
     title: Yup.string().max(90, "Too long").required("Required field"),
@@ -20,7 +20,7 @@ let initialValues = {
     title: "", description: "", rooms: 1, price: "", photos: [],
 };
 
-const FlatForm = ({ selectedInitialValues }) => {
+const FlatForm = ({ selectedInitialValues, variant }) => {
     const titleFieldId = useId();
     const descriptionFieldId = useId();
     const roomsFieldId = useId();
@@ -33,8 +33,12 @@ const FlatForm = ({ selectedInitialValues }) => {
         initialValues = selectedInitialValues;
     }
 
-    const typeOfQuery = (formData) => {
+    const makeSpecificRequest = (formData, arrayOfPhoto) => {
         if (selectedInitialValues?.title) {
+            formData.delete("photos");
+            for (const file of arrayOfPhoto) {
+                formData.append("photos", file);
+            }
             dispatch(patchFlat({ _id, formData }));
             return;
         }
@@ -54,15 +58,16 @@ const FlatForm = ({ selectedInitialValues }) => {
                 formData.append("price", values.price);
                 values.photos.forEach((file) => {
                     formData.append("photos", file);
+
                 });
-                typeOfQuery(formData);
+
+                makeSpecificRequest(formData, values.photos);
 
                 setPreview([]);
                 actions.resetForm();
             }}>
             {({ setFieldValue }) => (
-                <Form className={css.formContainer}>
-
+                <Form className={clsx(css.formContainer)}>
                     <div className={css.toAddContainer}>
                         <div className={css.inputsContainer}>
                             <div className={css.fieldContainer}>
@@ -93,18 +98,19 @@ const FlatForm = ({ selectedInitialValues }) => {
                         </div>
 
                         {/* Форма загрузки фото */}
-                        <div className={css.btnContainer}>
+                        <div className={clsx(css.btnContainer, css[variant])}>
                             <input
                                 type="file"
                                 accept="image/*"
                                 multiple
+
                                 onChange={(event) => {
                                     const files = Array.from(event.currentTarget.files);
-                                    setFieldValue("photos", Array.from(event.currentTarget.files));
+                                    setFieldValue("photos", files);
 
-                                    // Генерируем превью для отображения
                                     const previews = files.map((file) => URL.createObjectURL(file));
-                                    setPreview((prev) => [...prev, ...previews]);
+                                    setPreview(() => previews);
+                                    // setPreview((prev) => [...prev, ...previews]);
                                 }}
                                 hidden
                                 id="photoUpload"

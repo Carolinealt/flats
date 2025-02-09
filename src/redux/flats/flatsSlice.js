@@ -20,7 +20,8 @@ const flatsSlice = createSlice({
         isLoading: false,
         error: null,
         isModal: false,
-        selectedFlatData: {}
+        selectedFlatData: {},
+        photos: []
     },
     reducers: {
         toggleModal: (state, action) => {
@@ -28,7 +29,10 @@ const flatsSlice = createSlice({
         },
         editFlatData: (state, { payload }) => {
             return { ...state, selectedFlatData: payload }
-        }
+        },
+        addNewPhoto: (state, { payload }) => {
+            return { ...state, photos: payload }
+        },
     },
     extraReducers: builder => {
         builder
@@ -57,12 +61,12 @@ const flatsSlice = createSlice({
             .addCase(patchFlat.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
                 state.error = null;
-                state.items = state.items.filter(el => el._id !== payload.id)
+                state.items = state.items.map(el => el._id === payload._id ? payload : el)
             })
             .addCase(patchFlat.rejected, handleRejected)
     }
 });
 
-export const { toggleModal, editFlatData } = flatsSlice.actions;
+export const { toggleModal, editFlatData, addNewPhoto } = flatsSlice.actions;
 
 export default flatsSlice.reducer;

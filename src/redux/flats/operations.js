@@ -41,9 +41,9 @@ export const patchFlat = createAsyncThunk('flats/patchFlat', async (payload, thu
         const { _id, formData } = payload;
 
         const { data: data } = await axios.patch(`/flats/${_id}`, formData);
-        console.log(data);
+        console.log(data.data);
 
-        return data;
+        return data.data;
     } catch (e) {
         console.log(e);
 
