@@ -2,15 +2,23 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    
+    flex-direction: column;
+    width: 400px;
 }
 
 .flatsItem {
-    width: calc((100% - 20px) / 3);
+    max-width: 300px;
     background-color: var(--mainColor);
     transition: transform var(--transitionProp);
 
 }
+
+/* .flatsItem {
+    width: calc((100% - 20px) / 3);
+    background-color: var(--mainColor);
+    transition: transform var(--transitionProp);
+
+} */
 
 .flatsItem:hover,
 .flatsItem:focus {

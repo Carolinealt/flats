@@ -3,8 +3,6 @@ import { addFlat, deleteFlat, fetchFlats, patchFlat } from "./operations";
 
 const handlePending = (state) => {
     state.isLoading = true;
-    console.log("handlePending");
-
 };
 
 const handleRejected = (state, action) => {

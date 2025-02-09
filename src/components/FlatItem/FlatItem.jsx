@@ -1,25 +1,18 @@
 import css from './FlatItem.module.css'
-import * as basicLightbox from 'basiclightbox'
 import clsx from 'clsx';
 import { IoAdd } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { deleteFlat } from '../../redux/flats/operations';
 import { useId } from 'react';
 import { editFlatData, toggleModal } from '../../redux/flats/flatsSlice';
+import BasicSlider from '../BasicSlider/BasicSlider';
 
 
 const FlatItem = ({ data }) => {
     const { title, description, rooms, price, photos, _id } = data;
     const dispatch = useDispatch();
     const galleryId = useId();
-    const toShowImgModal = (url) => {
-        const instance = basicLightbox.create(`
-            <div class="modal">
-                 <img src=${url} className={css.flatPhoto} />
-            </div>
-        `)
-        instance.show()
-    }
+
 
     const editBtn = () => {
         dispatch(toggleModal());
@@ -31,7 +24,8 @@ const FlatItem = ({ data }) => {
 
     return (
         <div className={css.itemContainer}>
-            <ul className={css.galleryList} id={galleryId}>
+            {/* <ul className={css.galleryList} id={galleryId}>
+
                 {photos.map(el => {
                     return <li key={el} className={css.galleyItem}>
                         <a className="gallery-link" onClick={() => toShowImgModal(el)}>
@@ -40,7 +34,10 @@ const FlatItem = ({ data }) => {
 
                     </li>
                 })}
-            </ul>
+            </ul> */}
+            <div className={css.itemContainer}>
+                <BasicSlider photos={photos} />
+            </div>
 
             <ul className={css.btnList}>
                 <li className={css.btnListItem}>

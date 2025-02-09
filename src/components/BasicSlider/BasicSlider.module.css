@@ -1,0 +1,8 @@
+.flatPhoto {
+    max-width: 100%;
+    border-radius: var(--borderRadius);
+}
+
+.swiper{
+    height: 300px;
+}
