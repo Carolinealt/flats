@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { IoAdd } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFlat, patchFlat } from '../../redux/flats/operations';
-import { selectFlatData, selectPhotos } from '../../redux/flats/selectors';
+import { selectFlatData } from '../../redux/flats/selectors';
 
 const FlatSchema = Yup.object().shape({
     title: Yup.string().max(90, "Too long").required("Required field"),
@@ -20,7 +20,7 @@ let initialValues = {
     title: "", description: "", rooms: 1, price: "", photos: [],
 };
 
-const FlatForm = ({ selectedInitialValues, variant }) => {
+const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
     const titleFieldId = useId();
     const descriptionFieldId = useId();
     const roomsFieldId = useId();
@@ -128,7 +128,7 @@ const FlatForm = ({ selectedInitialValues, variant }) => {
                         </div>
 
                     </div>
-                    <button type="submit" className={css.btnSubmit}>Add</button>
+                    <button type="submit" className={clsx(css.btnSubmit, css[variantSubmit])}>Add</button>
                 </Form>
             )}
         </Formik >

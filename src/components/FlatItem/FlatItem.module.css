@@ -3,6 +3,8 @@
     border-radius: 10px;
 }
 
+.sliderContainer {}
+
 .flatPhoto {
     width: 150px;
 }
@@ -22,11 +24,19 @@
 
 .btnList {
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    width: 100%;
+
+}
+
+.btnListItem {
+    width: 100%;
 }
 
 .btn {
     padding: 0;
+    width: 100%;
+
 }
 
 .editBtn {
@@ -35,7 +45,60 @@
 }
 
 .deleteBtn {
-    transform: rotate(45deg);
     color: brown;
 
+}
+
+@media (min-width: 768px) {
+
+    .itemContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 700px;
+        width: 400px;
+    }
+
+    .sliderContainer {
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .btnList {
+        display: flex;
+        justify-content: space-around
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    .itemContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 594px;
+    }
+
+    .btnList {
+        width: 100%;
+    }
+
+    .btnListItem {
+        width: 100%;
+    }
+
+    .sliderContainer {
+        max-width: 700px;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .deleteBtn {
+        transform: rotate(0);
+
+    }
 }

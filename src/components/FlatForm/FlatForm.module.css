@@ -8,14 +8,8 @@
 .toAddContainer {
     display: flex;
     gap: 10px;
-    flex-direction: row;
-    justify-content: space-around
-}
-
-.inputsContainer {
-    display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: space-around
 }
 
 .btnContainer {
@@ -25,8 +19,31 @@
     border-radius: var(--borderRadius);
     outline: none;
     border: none;
-
+    margin: auto;
 }
+
+
+@media (min-width: 768px) {
+    .toAddContainer {
+        flex-direction: row;
+    }
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* .btnContainer {
+    margin: auto 0;
+    padding: 50px;
+    background-color: #ffffff07;
+    border-radius: var(--borderRadius);
+    outline: none;
+    border: none;
+
+} */
 
 .addPhotoBtn {
     display: block;
@@ -53,6 +70,12 @@
 .modal {
     composes: btnContainer;
     opacity: 0;
+}
+
+.submitModal{
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 .fieldContainer {

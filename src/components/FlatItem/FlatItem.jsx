@@ -1,9 +1,10 @@
 import css from './FlatItem.module.css'
 import clsx from 'clsx';
 import { IoAdd } from 'react-icons/io5';
+import { CgCloseO } from "react-icons/cg";
+
 import { useDispatch } from 'react-redux';
 import { deleteFlat } from '../../redux/flats/operations';
-import { useId } from 'react';
 import { editFlatData, toggleModal } from '../../redux/flats/flatsSlice';
 import BasicSlider from '../BasicSlider/BasicSlider';
 
@@ -11,7 +12,6 @@ import BasicSlider from '../BasicSlider/BasicSlider';
 const FlatItem = ({ data }) => {
     const { title, description, rooms, price, photos, _id } = data;
     const dispatch = useDispatch();
-    const galleryId = useId();
 
 
     const editBtn = () => {
@@ -24,21 +24,6 @@ const FlatItem = ({ data }) => {
 
     return (
         <div className={css.itemContainer}>
-            {/* <ul className={css.galleryList} id={galleryId}>
-
-                {photos.map(el => {
-                    return <li key={el} className={css.galleyItem}>
-                        <a className="gallery-link" onClick={() => toShowImgModal(el)}>
-                            <img key={el} src={el} className={css.flatPhoto} />
-                        </a>
-
-                    </li>
-                })}
-            </ul> */}
-            <div className={css.itemContainer}>
-                <BasicSlider photos={photos} />
-            </div>
-
             <ul className={css.btnList}>
                 <li className={css.btnListItem}>
                     <button onClick={editBtn} className={clsx(css.btn, css.editBtn)}>
@@ -47,10 +32,15 @@ const FlatItem = ({ data }) => {
                 </li>
                 <li className={css.btnListItem}>
                     <button onClick={deleteItem} className={clsx(css.btn, css.deleteBtn)}>
-                        <IoAdd className={css.iconAdd} size="50" />
+                        <CgCloseO className={css.iconAdd} size="50" />
                     </button>
                 </li>
             </ul>
+            <div className={css.sliderContainer}>
+                <BasicSlider photos={photos} />
+            </div>
+
+
 
             <h4>{title}</h4>
             <div className='descContainer'>

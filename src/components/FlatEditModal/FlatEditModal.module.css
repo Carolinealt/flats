@@ -1,6 +1,5 @@
 .modalOverlayContainer {
     background-color: rgba(0, 0, 0, 0.919);
-
     position: fixed;
     top: 0;
     left: 0;
@@ -22,8 +21,30 @@
     pointer-events: auto;
 }
 
-.formContainer{
+.formContainer {
     background-color: #ffffff69;
     border-radius: var(--borderRadius);
     padding: 10px;
+    height: 60%;
+}
+
+.relativeContainer {
+    position: relative;
+}
+
+.closeModalBtn {
+    position: absolute;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.iconAdd{
+    color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .toAddContainer {
+        flex-direction: row;
+    }
+    
 }
