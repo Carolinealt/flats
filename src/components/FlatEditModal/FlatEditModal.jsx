@@ -5,36 +5,36 @@ import css from './FlatEditModal.module.css'
 import clsx from "clsx";
 import { toggleModal } from "../../redux/flats/flatsSlice";
 import { CgCloseO } from "react-icons/cg";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 const FlatEditModal = () => {
     const flatData = useSelector(selectFlatData)
     const isModal = useSelector(selectIsModal)
     const dispatch = useDispatch();
     const overlayRef = useRef(null);
 
-    // useEffect(() => {
-    //     const handleEscapePress = (event) => {
-    //         if (event.key === "Escape") {
-    //             dispatch(toggleModal());
-    //         }
-    //     };
+    useEffect(() => {
+        const handleEscapePress = (event) => {
+            if (event.key === "Escape") {
+                dispatch(toggleModal());
+            }
+        };
 
-    //     const handleOverlayClick = (event) => {
-    //         if (overlayRef.current && event.target === overlayRef.current) {
-    //             dispatch(toggleModal());
-    //         }
-    //     };
+        const handleOverlayClick = (event) => {
+            if (overlayRef.current && event.target === overlayRef.current) {
+                dispatch(toggleModal());
+            }
+        };
 
-    //     if (isModal) {
-    //         window.addEventListener("keydown", handleEscapePress);
-    //         window.addEventListener("click", handleOverlayClick);
-    //     }
+        if (isModal) {
+            window.addEventListener("keydown", handleEscapePress);
+            window.addEventListener("click", handleOverlayClick);
+        }
 
-    //     return () => {
-    //         window.removeEventListener("keydown", handleEscapePress);
-    //         window.removeEventListener("click", handleOverlayClick);
-    //     };
-    // }, [isModal, dispatch]);
+        return () => {
+            window.removeEventListener("keydown", handleEscapePress);
+            window.removeEventListener("click", handleOverlayClick);
+        };
+    }, [isModal, dispatch]);
 
     return (
         < div ref={overlayRef} className={clsx(css.modalOverlayContainer, isModal && css.isOpen)
