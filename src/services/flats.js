@@ -19,7 +19,7 @@ export const getAllFlats = async ({ page = 1,
         flatsQuery.where('rooms').equals(filter.rooms);
     }
 
-    const items = await flatsQuery.skip(skip).limit(limit).sort({[sortBy]: sortOrder});
+    const items = await flatsQuery.skip(skip).limit(limit).sort({ [sortBy]: sortOrder });
     const total = await FlatsCollection.find().merge(flatsQuery).countDocuments();
 
 
