@@ -28,7 +28,9 @@
 @media (min-width: 768px) and (max-width: 1023px) {
     .flatsList {}
 
-    .flatsItem {}
+    .flatsItem {
+
+    }
 }
 
 
@@ -38,5 +40,6 @@
         background-color: var(--mainColor);
         transition: transform var(--transitionProp);
         margin: 0;
+        justify-content: center;
     }
 }

@@ -57,6 +57,8 @@
         flex-wrap: wrap;
         max-width: 700px;
         width: 400px;
+        justify-content: center;
+
     }
 
     .sliderContainer {
