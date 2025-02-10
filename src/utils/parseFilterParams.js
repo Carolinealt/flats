@@ -16,12 +16,17 @@ const parseNumber = (number) => {
     const isString = typeof number === 'string';
     if (!isString) return;
 
-    const parsedNumber = parseInt(number);
+    const parsedNumber = parseInt(number, 10);
+
     if (Number.isNaN(parsedNumber)) {
         return;
     }
 
-    return parsedNumber;
+    if ([1, 2, 3].includes(parsedNumber)) {
+        return parsedNumber;
+    }
+
+    return;
 };
 
 export const parseFilterParams = (query) => {
