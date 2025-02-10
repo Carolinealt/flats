@@ -34,6 +34,8 @@ const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
     }
 
     const makeSpecificRequest = (formData, arrayOfPhoto) => {
+        console.log("click");
+
         if (selectedInitialValues?.title) {
             formData.delete("photos");
             for (const file of arrayOfPhoto) {
