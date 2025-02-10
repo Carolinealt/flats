@@ -7,6 +7,7 @@ import { IoAdd } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { addFlat, patchFlat } from '../../redux/flats/operations';
 import { selectFlatData } from '../../redux/flats/selectors';
+import { toggleModal } from '../../redux/flats/flatsSlice';
 
 const FlatSchema = Yup.object().shape({
     title: Yup.string().max(90, "Too long").required("Required field"),
@@ -34,14 +35,13 @@ const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
     }
 
     const makeSpecificRequest = (formData, arrayOfPhoto) => {
-        console.log("click");
-
         if (selectedInitialValues?.title) {
             formData.delete("photos");
             for (const file of arrayOfPhoto) {
                 formData.append("photos", file);
             }
             dispatch(patchFlat({ _id, formData }));
+            dispatch(toggleModal())
             return;
         }
         dispatch(addFlat(formData));

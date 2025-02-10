@@ -9,7 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     opacity: 0;
     pointer-events: none;
     transition: opacity 250ms ease-in-out;
@@ -21,11 +20,12 @@
     pointer-events: auto;
 }
 
+
 .formContainer {
     background-color: #ffffff69;
     border-radius: var(--borderRadius);
     padding: 10px;
-    height: 60%;
+    height: 650px;
 }
 
 .relativeContainer {
@@ -35,10 +35,10 @@
 .closeModalBtn {
     position: absolute;
     right: 0;
-    transform: translate(50%, -50%);
+    transform: translate(10%, -40%);
 }
 
-.iconAdd{
+.iconAdd {
     color: #ffffff;
 }
 
@@ -46,5 +46,5 @@
     .toAddContainer {
         flex-direction: row;
     }
-    
+
 }
