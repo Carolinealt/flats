@@ -1,0 +1,73 @@
+tags:
+  - Flats
+summary: Patch flat by id
+operationId: patchFlat
+description: 'Patch flat by id'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '66ca67e7ae7f10c88b598384'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - title
+          - description
+          - price
+          - rooms
+          - photos
+        properties:
+          _id:
+            description: "Flat's id"
+            type: string
+            example: 65e4decdd286b30065d54af9
+          title:
+            description: "Flat's title"
+            type: string
+            example: 'Comforn flat'
+          description:
+            description: "Flat's description"
+            type: string
+            example: "Comfort place"
+          rooms:
+            description: "Flat's rooms"
+            type: number
+            enum: [1, 2, 3]
+          price:
+            description: "Flat's price"
+            type: number
+            example: 1000
+          photos:
+            description: "Link to flat's photos"
+            type: array
+            example: ["https://res.cloudinary.com/image/upload/flat.png","https://res.cloudinary.com/image/upload/flat.png"]
+responses:
+  '200':
+    description: 'Patch flat by id'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully patched flat with id 66ca67e7ae7f10c88b598384!
+            data:
+              type: object
+              $ref: '../../../components/schemas/flat.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

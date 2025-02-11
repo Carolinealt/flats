@@ -1,0 +1,32 @@
+type: object
+required:
+  - _id
+  - title
+  - rooms
+  - price
+  - description
+properties:
+  _id:
+    description: "Flat's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  title:
+    description: "Flat's title"
+    type: string
+    example: 'Comforn flat'
+  description:
+    description: "Flat's description"
+    type: string
+    example: "Comfort place"
+  rooms:
+    description: "Flat's rooms"
+    type: number
+    enum: [1, 2, 3]
+  price:
+    description: "Flat's price"
+    type: number
+    example: 1000
+  photos:
+    description: "Link to flat's photo"
+    type: array
+    example: ["https://res.cloudinary.com/image/upload/flat.png","https://res.cloudinary.com/image/upload/flat.png"]

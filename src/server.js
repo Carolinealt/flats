@@ -6,6 +6,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import flatsRouter from './routers/flats.js';
 import { notFoundHandler } from './utils/notFoundHandler.js';
 import { errorHandler } from './utils/errorHandler.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 dotenv.config();
 
@@ -32,9 +33,9 @@ export const startServer = () => {
         });
     });
 
-    // app.use('/uploads', express.static(UPLOAD_DIR));
-
     app.use(flatsRouter);
+
+    app.use('/api-docs', swaggerDocs());
 
     app.use('*', notFoundHandler);
 

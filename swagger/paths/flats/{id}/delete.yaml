@@ -1,0 +1,19 @@
+tags:
+  - Flats
+summary: Delete flat by id
+operationId: deleteFlat
+description: 'Delete flat by id'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+responses:
+  '204':
+    description: 'Deleted flat by id'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
