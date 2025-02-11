@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFlat, patchFlat } from '../../redux/flats/operations';
 import { selectFlatData } from '../../redux/flats/selectors';
 import { toggleModal } from '../../redux/flats/flatsSlice';
+import { ErrorMessage } from "formik";
+
 
 const FlatSchema = Yup.object().shape({
     title: Yup.string().max(90, "Too long").required("Required field"),
@@ -75,11 +77,13 @@ const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
                             <div className={css.fieldContainer}>
                                 <label htmlFor={titleFieldId}>Title</label>
                                 <Field type="text" name="title" id={titleFieldId} className={css.textField} />
+                                <ErrorMessage name="title" component="span" />
                             </div>
 
                             <div className={css.fieldContainer}>
                                 <label htmlFor={descriptionFieldId}>Description</label>
                                 <Field as="textarea" rows="5" name="description" id={descriptionFieldId} className={clsx(css.textField, css.textAreaField)} />
+                                <ErrorMessage name="description" component="span" />            
                             </div>
 
                             <div className={css.fieldContainer}>
@@ -89,11 +93,13 @@ const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                 </Field>
+                                <ErrorMessage name="rooms" component="span" />            
                             </div>
 
                             <div className={css.fieldContainer}>
                                 <label htmlFor={titleFieldId}>Price</label>
                                 <Field type="text" name="price" id={priceFieldId} className={css.textField} />
+                                <ErrorMessage name="price" component="span" />                                        
                             </div>
 
 
@@ -120,9 +126,10 @@ const FlatForm = ({ selectedInitialValues, variant, variantSubmit }) => {
                             <label htmlFor="photoUpload" className={css.addPhotoBtn}>
                                 <IoAdd className={css.iconAdd} size="50" />
                             </label>
+                            <ErrorMessage name="photoUpload" component="span" />                                        
                         </div>
 
-                        {/* Превью изображений */}
+                        {/* Превью  */}
                         <div className={css.previewContainer}>
                             {preview.map((src, index) => (
                                 <img key={index} src={src} alt={`Preview ${index}`} className={css.previewImage} />

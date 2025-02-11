@@ -21,6 +21,8 @@ export const addFlat = createAsyncThunk('flats/addFlat', async (payload, thunkAP
 
         return data.data;
     } catch (e) {
+        console.log(e);
+
         return thunkAPI.rejectWithValue(e.message);
 
     }
