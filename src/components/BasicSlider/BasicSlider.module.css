@@ -7,10 +7,6 @@
     height: 200px;
 }
 
-.modalBigImg {
-    /* display: none; */
-}
-
 @media (min-width: 768px) {
     .flatPhoto {
         display: block;
