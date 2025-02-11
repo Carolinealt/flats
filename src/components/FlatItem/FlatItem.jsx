@@ -42,8 +42,8 @@ const FlatItem = ({ data }) => {
 
 
 
-            <h4>{title}</h4>
             <div className='descContainer'>
+            <h4 className={css.header}>{title}</h4>
                 <p>{description}</p>
                 <p>Rooms: {rooms}</p>
                 <p>Price: {price}</p>
